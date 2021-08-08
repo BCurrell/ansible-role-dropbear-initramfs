@@ -1,0 +1,11 @@
+---
+dropbear-initramfs:
+  initramfs:
+    config-file: /etc/initramfs-tools/initramfs.conf
+    ip: ~
+  options:
+    timeout: 60
+    port: 22
+  authorized-keys-file: /etc/dropbear-initramfs/authorized_keys
+  public-keys:
+    - ~

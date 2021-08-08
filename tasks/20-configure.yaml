@@ -1,0 +1,38 @@
+---
+- name: Configure static IP for initramfs
+  when: "{{ dropbear-initramfs.initramfs.ip }}"
+  lineinfile:
+    path: "{{ dropbear-initramfs.initramfs.config_file }}"
+    line: "IP={{ dropbear-initramfs.initramfs.ip }}"
+    state: present
+    owner: root
+    group: root
+    mode: 0644
+  register:
+    - update_initramfs
+
+- name: Configure dropbear
+  template:
+    src: etc/dropbear-initramfs/config.j2
+    dest: /etc/dropbear-initramfs/config
+    owner: root
+    group: root
+    mode: 0600
+  register:
+    - update_initramfs
+
+- name: Configure dropbear public keys
+  when: "{{ dropbear-initramfs.public-keys }}"
+  loop: "{{ dropbear-initramfs.public-keys }}"
+  lineinfile:
+    path: "{{ dropbear-initramfs.authorized-keys-file }}"
+    line: "{{ item }}"
+    state: present
+    owner: root
+    group: root
+    mode: 0600
+  register:
+    - update_initramfs
+
+- name: Flush handlers
+  meta: flush_handlers

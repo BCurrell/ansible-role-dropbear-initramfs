@@ -1,0 +1,6 @@
+---
+- name: Install dropbear-initramfs
+  package:
+    name:
+      - dropbear-initramfs
+    state: present
