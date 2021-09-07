@@ -8,8 +8,7 @@
     owner: root
     group: root
     mode: 0644
-  register:
-    - update_initramfs
+  register: update_initramfs
 
 - name: Configure dropbear
   template:
@@ -18,8 +17,7 @@
     owner: root
     group: root
     mode: 0600
-  register:
-    - update_initramfs
+  register: update_initramfs
 
 - name: Configure dropbear public keys
   when: "{{ dropbear-initramfs.public-keys }}"
@@ -31,8 +29,7 @@
     owner: root
     group: root
     mode: 0600
-  register:
-    - update_initramfs
+  register: update_initramfs
 
 - name: Flush handlers
   meta: flush_handlers
