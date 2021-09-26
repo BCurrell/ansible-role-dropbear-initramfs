@@ -9,7 +9,6 @@ initramfs_ip_gateway: ~
 initramfs_ip_netmask: ~
 initramfs_ip_hostname: ~
 initramfs_ip_interface: ~
-initramfs_ip_autoconf: off
 initramfs_ip_dns_primary: 8.8.8.8
 initramfs_ip_dns_secondary: 1.1.1.1
 initramfs_ip_ntp: ~
