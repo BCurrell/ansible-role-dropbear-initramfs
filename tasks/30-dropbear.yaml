@@ -1,0 +1,26 @@
+---
+- name: Configure dropbear options
+  template:
+    src: etc/dropbear-initramfs/config.j2
+    dest: /etc/dropbear-initramfs/config
+    owner: root
+    group: root
+    mode: 0600
+  register:
+    - update_initramfs
+
+- name: Configure dropbear public keys
+  when: dropbear_sshkeys
+  loop: "{{ dropbear_sshkeys }}"
+  lineinfile:
+    path: /etc/dropbear-initramfs/authorized_keys
+    line: "{{ item }}"
+    state: present
+    owner: root
+    group: root
+    mode: 0600
+  register:
+    - update_initramfs
+
+- name: Flush handlers
+  meta: flush_handlers

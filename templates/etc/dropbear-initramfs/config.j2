@@ -1,20 +1,17 @@
 # {{ ansible_managed }}
-#
-# Configuration options for the dropbear-initramfs boot scripts.
-# You must run update-initramfs(8) to effect changes to this file (like
-# for other files under the '/etc/dropbear-initramfs' directory).
 
-#
-# Command line options to pass to dropbear(8)
-#
-#DROPBEAR_OPTIONS=
-DROPBEAR_OPTIONS="-I {{ dropbear-initramfs.options.timeout }} -j -k -p {{ dropbear-initramfs.options.port }} -s"
+{%- set dropbear_options = '-p ' + dropbear_options_port|string + ' -I ' + dropbear_options_timeout|string + ' ' -%}
+{%- if not dropbear_options_passwordlogin -%}
+	{%- set dropbear_options = dropbear_options + '-s ' -%}
+{%- endif -%}
+{%- if not dropbear_options_forwarding_local -%}
+	{%- set dropbear_options = dropbear_options + '-j ' -%}
+{%- endif -%}
+{%- if not dropbear_options_forwarding_remote -%}
+	{%- set dropbear_options = dropbear_options + '-k ' -%}
+{%- endif -%}
+{%- if dropbear_options_custom -%}
+	{%- set dropbear_options = dropbear_options + dropbear_options_custom|string -%}
+{% endif %}
 
-#
-# On local (non-NFS) mounts, interfaces matching this pattern are
-# brought down before exiting the ramdisk to avoid dirty network
-# configuration in the normal kernel.
-# The special value 'none' keeps all interfaces up and preserves routing
-# tables and addresses.
-#
-#IFDOWN=*
+DROPBEAR_OPTIONS="{{ dropbear_options }}"

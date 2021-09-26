@@ -1,0 +1,14 @@
+---
+- name: Configure initramfs static IP
+  lineinfile:
+    path: "{{ initramfs_configfile }}"
+    line: "IP={{ initramfs_ip_address }}::{{ initramfs_ip_gateway }}:{{ initramfs_ip_netmask }}:{{ initramfs_ip_hostname }}:{{ initramfs_ip_interface }}:{{ initramfs_ip_autoconf }}:{{ initramfs_ip_dns_primary }}:{{ initramfs_ip_dns_secondary }}:{{ initramfs_ip_ntp }}"
+    state: present
+    owner: root
+    group: root
+    mode: 0644
+  register:
+    - update_initramfs
+
+- name: Flush handlers
+  meta: flush_handlers
