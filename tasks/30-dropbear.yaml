@@ -15,6 +15,7 @@
     path: /etc/dropbear-initramfs/authorized_keys
     line: "{{ item }}"
     state: present
+    create: true
     owner: root
     group: root
     mode: 0600
