@@ -8,7 +8,8 @@
     owner: root
     group: root
     mode: 0644
-  register: update_initramfs
+  notify:
+    - update_initramfs
 
 - name: Flush handlers
   meta: flush_handlers

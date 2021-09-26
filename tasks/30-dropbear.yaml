@@ -6,7 +6,8 @@
     owner: root
     group: root
     mode: 0600
-  register: update_initramfs
+  notify:
+    - update_initramfs
 
 - name: Configure dropbear public keys
   when: dropbear_sshkeys
@@ -19,7 +20,8 @@
     owner: root
     group: root
     mode: 0600
-  register: update_initramfs
+  notify:
+    - update_initramfs
 
 - name: Flush handlers
   meta: flush_handlers
