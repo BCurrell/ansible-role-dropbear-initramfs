@@ -13,7 +13,6 @@
   loop: "{{ dropbear_sshkeys }}"
   lineinfile:
     path: /etc/dropbear-initramfs/authorized_keys
-    regexp: "^IP=.*$"
     line: "{{ item }}"
     state: present
     create: true

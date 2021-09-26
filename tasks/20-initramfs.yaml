@@ -2,6 +2,7 @@
 - name: Configure initramfs static IP
   lineinfile:
     path: "{{ initramfs_configfile }}"
+    regexp: "^IP="
     line: "IP={{ initramfs_ip_address }}::{{ initramfs_ip_gateway }}:{{ initramfs_ip_netmask }}:{{ initramfs_ip_hostname }}:{{ initramfs_ip_interface }}:off:{{ initramfs_ip_dns_primary }}:{{ initramfs_ip_dns_secondary }}:{{ initramfs_ip_ntp }}"
     state: present
     owner: root
